@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kanda Kumaran Thevar — Lecturer & Cybersecurity Specialist</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" onerror="this.remove()">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --i950:#0f0c2e;--i900:#1e1b4b;--i800:#2d2a6e;--i700:#3d3a8f;
+  --i500:#6366f1;--i400:#818cf8;--i300:#a5b4fc;--i200:#c7d2fe;--i100:#e0e7ff;
+  --v400:#c084fc;--v300:#d8b4fe;
+  --t400:#2dd4bf;--t300:#5eead4;
+  --amber:#fbbf24;--green:#4ade80;
+  --glass:rgba(255,255,255,0.05);--glassborder:rgba(255,255,255,0.10);
+  --txt:#f1f5f9;--txt2:rgba(241,245,249,0.65);--txt3:rgba(241,245,249,0.38);
+  --mono:'JetBrains Mono','Courier New',monospace;--display:'Syne','Georgia',serif;--body:'DM Sans','Segoe UI',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);background:var(--i950);color:var(--txt);overflow-x:hidden}
+
+/* ─── TERMINAL ─── */
+#terminal{
+  position:fixed;inset:0;background:#030608;z-index:9999;
+  display:flex;flex-direction:column;padding:clamp(1.2rem,4vw,2.5rem);
+  font-family:var(--mono);font-size:clamp(11px,2vw,13px);line-height:1.95;overflow:hidden;
+}
+.tl{opacity:0;white-space:pre-wrap;word-break:break-all}
+.tl.show{opacity:1}
+.tg{color:#00e676}.tb{color:#4fc3f7}.ty{color:#ffd54f}
+.tr{color:#ff5252}.tw{color:#eceff1}.tm{color:#546e7a}.tv{color:#ce93d8}.tt{color:#4dd0e1}
+.cursor{display:inline-block;width:8px;height:14px;background:#00e676;vertical-align:text-bottom;animation:blink .8s step-end infinite}
+@keyframes blink{50%{opacity:0}}
+.pbar-wrap{display:inline-block;background:#0d2a1a;border-radius:2px;height:5px;width:min(260px,50vw);vertical-align:middle;margin:0 8px}
+.pbar-fill{height:100%;background:#00e676;border-radius:2px;width:0%;transition:width .04s linear}
+#terminal.exit{animation:termExit 1s forwards}
+@keyframes termExit{0%{opacity:1;filter:brightness(1)}70%{opacity:1;filter:brightness(2)}100%{opacity:0;filter:brightness(0);pointer-events:none}}
+
+/* ─── BG EFFECTS ─── */
+#portfolio{opacity:0;transition:opacity 1.2s ease}
+#portfolio.visible{opacity:1}
+
+body::before{content:'';position:fixed;inset:0;
+  background-image:linear-gradient(rgba(99,102,241,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(99,102,241,.04) 1px,transparent 1px);
+  background-size:52px 52px;z-index:0;pointer-events:none}
+.orb{position:fixed;border-radius:50%;filter:blur(120px);opacity:.18;pointer-events:none;z-index:0}
+.orb1{width:600px;height:600px;background:radial-gradient(circle,#6366f1,transparent);top:-200px;right:-100px}
+.orb2{width:500px;height:500px;background:radial-gradient(circle,#c084fc,transparent);bottom:-150px;left:-100px}
+
+/* ─── NAV ─── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.9rem clamp(1rem,4vw,2.5rem);
+  background:rgba(15,12,46,.92);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--glassborder)}
+.nav-logo{font-family:var(--mono);font-size:13px;color:var(--i400);letter-spacing:.05em;z-index:101}
+.nav-logo span{color:var(--t400)}
+
+/* Desktop links */
+.nav-links{display:flex;gap:clamp(.8rem,2vw,1.5rem);list-style:none}
+.nav-links a{font-size:11px;font-weight:500;color:var(--txt2);text-decoration:none;
+  letter-spacing:.08em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--i300)}
+.nav-cta{background:var(--i500);color:#fff!important;padding:5px 14px;border-radius:6px;transition:background .2s!important}
+.nav-cta:hover{background:var(--i400)!important}
+
+/* Hamburger button */
+.nav-hamburger{display:none;flex-direction:column;justify-content:center;align-items:center;
+  width:40px;height:40px;cursor:pointer;gap:5px;z-index:101;background:none;border:none;padding:4px}
+.nav-hamburger span{display:block;width:22px;height:2px;background:var(--txt);
+  border-radius:2px;transition:all .3s ease;transform-origin:center}
+.nav-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* Mobile drawer */
+@media(max-width:768px){
+  .nav-links{
+    position:fixed;top:0;right:0;bottom:0;width:75vw;max-width:280px;
+    flex-direction:column;gap:0;
+    background:rgba(15,12,46,.98);backdrop-filter:blur(30px);
+    border-left:1px solid var(--glassborder);
+    padding:5rem 2rem 2rem;
+    transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);
+    z-index:100;list-style:none;
+  }
+  .nav-links.open{transform:translateX(0)}
+  .nav-links li{border-bottom:1px solid var(--glassborder)}
+  .nav-links a{display:block;font-size:14px;padding:1rem .5rem;letter-spacing:.1em;color:var(--txt2)}
+  .nav-links a:hover{color:var(--i300);background:rgba(99,102,241,.06);border-radius:6px}
+  .nav-cta{background:var(--i500)!important;color:#fff!important;
+    margin-top:1rem;text-align:center;border-radius:8px!important;padding:.8rem 1rem!important;
+    display:block;border:none!important}
+  .nav-hamburger{display:flex}
+  /* Overlay behind drawer */
+  .nav-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:99}
+  .nav-overlay.open{display:block}
+}
+
+/* ─── SECTIONS ─── */
+section{position:relative;z-index:1}
+.container{max-width:1100px;margin:0 auto;padding:0 clamp(1rem,4vw,2.5rem)}
+
+/* ─── HERO ─── */
+#hero{min-height:100vh;display:flex;align-items:center;padding:7rem clamp(1rem,4vw,2.5rem) 4rem;max-width:1100px;margin:0 auto}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;
+  background:rgba(99,102,241,.12);border:1px solid rgba(99,102,241,.3);
+  border-radius:99px;padding:5px 14px;font-family:var(--mono);font-size:11px;
+  color:var(--i300);margin-bottom:1.5rem;letter-spacing:.05em}
+.hero-badge::before{content:'';width:6px;height:6px;background:var(--t400);
+  border-radius:50%;box-shadow:0 0 6px var(--t400);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero-name{font-family:var(--display);font-size:clamp(2.4rem,7vw,5.2rem);
+  font-weight:800;line-height:1.0;letter-spacing:-.02em;margin-bottom:.4rem}
+.hero-name .first{color:var(--txt)}
+.hero-name .grad{background:linear-gradient(135deg,var(--i400),var(--v400),var(--t400));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-title{font-family:var(--mono);font-size:13px;color:var(--t400);
+  letter-spacing:.12em;text-transform:uppercase;margin-bottom:1.2rem}
+.hero-desc{font-size:1.05rem;color:var(--txt2);line-height:1.75;max-width:580px;
+  margin-bottom:2rem;font-weight:300}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--i500);
+  color:#fff;padding:.7rem 1.5rem;border-radius:8px;font-size:14px;font-weight:500;
+  text-decoration:none;border:none;cursor:pointer;transition:background .2s,transform .15s}
+.btn-primary:hover{background:var(--i400);transform:translateY(-2px)}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;
+  background:transparent;color:var(--txt2);padding:.7rem 1.5rem;border-radius:8px;
+  font-size:14px;font-weight:500;text-decoration:none;
+  border:1px solid var(--glassborder);transition:all .2s}
+.btn-ghost:hover{background:var(--glass);color:var(--txt);transform:translateY(-2px)}
+.hero-stats{display:flex;gap:2rem;margin-top:2.5rem;flex-wrap:wrap}
+.stat-item{display:flex;flex-direction:column}
+.stat-num{font-family:var(--display);font-size:1.8rem;font-weight:800;
+  background:linear-gradient(135deg,var(--i400),var(--v400));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.stat-lbl{font-size:12px;color:var(--txt3);letter-spacing:.06em;text-transform:uppercase}
+
+/* ─── SECTION HEADERS ─── */
+.sec-header{text-align:center;margin-bottom:3rem}
+.sec-tag{display:inline-block;font-family:var(--mono);font-size:11px;
+  color:var(--t400);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.75rem}
+.sec-title{font-family:var(--display);font-size:clamp(1.8rem,4vw,2.6rem);
+  font-weight:700;color:var(--txt)}
+.sec-sub{font-size:1rem;color:var(--txt2);margin-top:.5rem;font-weight:300}
+.divider{width:60px;height:3px;background:linear-gradient(90deg,var(--i500),var(--v400));
+  border-radius:99px;margin:.75rem auto 0}
+
+/* ─── ABOUT ─── */
+#about{padding:6rem 0}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+@media(max-width:700px){.about-grid{grid-template-columns:1fr}}
+.about-card{background:var(--glass);border:1px solid var(--glassborder);
+  border-radius:16px;padding:1.75rem}
+.about-avatar{width:90px;height:90px;border-radius:50%;
+  background:linear-gradient(135deg,var(--i500),var(--v400));
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--display);font-size:1.8rem;font-weight:800;color:#fff;margin-bottom:1rem}
+.about-name{font-family:var(--display);font-size:1.2rem;font-weight:700;margin-bottom:.3rem}
+.about-role{font-family:var(--mono);font-size:11px;color:var(--t400);letter-spacing:.1em;text-transform:uppercase}
+.about-info{margin-top:1.2rem;display:flex;flex-direction:column;gap:.6rem}
+.info-row{display:flex;gap:.75rem;align-items:flex-start;font-size:13px;color:var(--txt2)}
+.info-icon{color:var(--i400);font-size:14px;flex-shrink:0;margin-top:1px}
+.about-bio{font-size:1rem;color:var(--txt2);line-height:1.8;font-weight:300}
+.about-bio p{margin-bottom:1rem}
+.about-bio p:last-child{margin-bottom:0}
+
+/* ─── EDUCATION ─── */
+#education{padding:6rem 0;background:linear-gradient(180deg,transparent,rgba(30,27,75,.3),transparent)}
+.edu-timeline{position:relative;max-width:750px;margin:0 auto}
+.edu-timeline::before{content:'';position:absolute;left:20px;top:0;bottom:0;
+  width:1px;background:linear-gradient(180deg,transparent,var(--i500),var(--v400),transparent)}
+.edu-item{display:flex;gap:1.5rem;margin-bottom:2rem;position:relative}
+.edu-dot{width:40px;height:40px;border-radius:50%;background:var(--glass);
+  border:2px solid var(--i500);display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;font-size:14px;z-index:1}
+.edu-content{background:var(--glass);border:1px solid var(--glassborder);
+  border-radius:12px;padding:1.25rem 1.5rem;flex:1;transition:border-color .2s}
+.edu-content:hover{border-color:rgba(99,102,241,.4)}
+.edu-degree{font-family:var(--display);font-size:1rem;font-weight:700;margin-bottom:.25rem}
+.edu-school{font-size:13px;color:var(--i300);margin-bottom:.25rem}
+.edu-year{font-family:var(--mono);font-size:11px;color:var(--txt3);letter-spacing:.08em}
+.edu-badge{display:inline-block;font-size:10px;padding:3px 10px;border-radius:99px;
+  background:rgba(45,212,191,.12);border:1px solid rgba(45,212,191,.3);
+  color:var(--t400);margin-top:.5rem;font-family:var(--mono);letter-spacing:.05em}
+
+/* ─── EXPERIENCE ─── */
+#experience{padding:6rem 0}
+.exp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.25rem}
+.exp-card{background:var(--glass);border:1px solid var(--glassborder);
+  border-radius:14px;padding:1.5rem;transition:all .3s;position:relative;overflow:hidden}
+.exp-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--i500),var(--v400));opacity:0;transition:opacity .3s}
+.exp-card:hover{border-color:rgba(99,102,241,.4);transform:translateY(-3px)}
+.exp-card:hover::before{opacity:1}
+.exp-role{font-family:var(--display);font-size:1rem;font-weight:700;margin-bottom:.25rem}
+.exp-org{font-size:13px;color:var(--i300);margin-bottom:.25rem}
+.exp-period{font-family:var(--mono);font-size:11px;color:var(--txt3);margin-bottom:.75rem}
+.exp-desc{font-size:13px;color:var(--txt2);line-height:1.7;font-weight:300}
+.skill-pill{display:inline-block;font-size:11px;padding:3px 9px;border-radius:99px;
+  background:rgba(99,102,241,.12);border:1px solid rgba(99,102,241,.25);
+  color:var(--i300);margin:3px 2px 0;font-family:var(--mono)}
+
+/* ─── SKILLS ─── */
+#skills{padding:6rem 0;background:linear-gradient(180deg,transparent,rgba(30,27,75,.3),transparent)}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem}
+.skill-cat{background:var(--glass);border:1px solid var(--glassborder);border-radius:14px;padding:1.5rem}
+.skill-cat-title{font-family:var(--mono);font-size:11px;color:var(--t400);
+  letter-spacing:.12em;text-transform:uppercase;margin-bottom:1rem}
+.skill-item{display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:.6rem;font-size:13px;color:var(--txt2)}
+.skill-bar-wrap{width:100px;height:4px;background:rgba(255,255,255,.08);border-radius:99px;overflow:hidden}
+.skill-bar{height:100%;background:linear-gradient(90deg,var(--i500),var(--v400));border-radius:99px}
+
+/* ─── CERTIFICATIONS ─── */
+#certifications{padding:6rem 0}
+.cert-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem}
+.cert-card{background:var(--glass);border:1px solid var(--glassborder);
+  border-radius:12px;padding:1.25rem;display:flex;align-items:flex-start;gap:.85rem;
+  transition:border-color .2s}
+.cert-card:hover{border-color:rgba(99,102,241,.4)}
+.cert-icon{width:40px;height:40px;border-radius:10px;
+  background:linear-gradient(135deg,var(--i800),var(--i700));
+  display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.cert-name{font-size:13px;font-weight:500;margin-bottom:2px;line-height:1.4}
+.cert-issuer{font-size:11px;color:var(--i300);margin-bottom:2px}
+.cert-date{font-family:var(--mono);font-size:10px;color:var(--txt3)}
+
+/* ─── PROJECTS ─── */
+#projects{padding:6rem 0;background:linear-gradient(180deg,transparent,rgba(30,27,75,.3),transparent)}
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.25rem}
+.proj-card{background:var(--glass);border:1px solid var(--glassborder);
+  border-radius:14px;padding:1.5rem;transition:all .3s;position:relative;overflow:hidden}
+.proj-card:hover{border-color:rgba(99,102,241,.4);transform:translateY(-3px)}
+.proj-num{font-family:var(--mono);font-size:11px;color:var(--txt3);margin-bottom:.5rem}
+.proj-name{font-family:var(--display);font-size:1rem;font-weight:700;margin-bottom:.5rem}
+.proj-org{font-size:11px;color:var(--i300);margin-bottom:.75rem;font-family:var(--mono)}
+.proj-desc{font-size:13px;color:var(--txt2);line-height:1.7;font-weight:300}
+.proj-tags{margin-top:.85rem;display:flex;flex-wrap:wrap;gap:4px}
+
+/* ─── PUBLICATIONS ─── */
+#publications{padding:6rem 0}
+.pub-card{background:var(--glass);border:1px solid var(--glassborder);
+  border-radius:14px;padding:1.75rem;max-width:750px;margin:0 auto;
+  display:flex;gap:1.25rem;align-items:flex-start;transition:border-color .2s}
+.pub-card:hover{border-color:rgba(99,102,241,.4)}
+.pub-icon{font-size:2rem;flex-shrink:0}
+.pub-title{font-family:var(--display);font-size:1.05rem;font-weight:700;margin-bottom:.35rem}
+.pub-venue{font-size:13px;color:var(--i300);margin-bottom:.5rem}
+.pub-desc{font-size:13px;color:var(--txt2);line-height:1.7;font-weight:300}
+
+/* ─── CONTACT ─── */
+#contact{padding:6rem 0}
+.contact-wrap{display:grid;grid-template-columns:1fr 1.4fr;gap:3rem;align-items:start}
+@media(max-width:700px){.contact-wrap{grid-template-columns:1fr}}
+.contact-info h3{font-family:var(--display);font-size:1.4rem;font-weight:700;margin-bottom:.75rem}
+.contact-info p{font-size:.95rem;color:var(--txt2);line-height:1.75;font-weight:300;margin-bottom:1.5rem}
+.contact-link{display:flex;align-items:center;gap:.75rem;padding:.85rem 1rem;
+  background:var(--glass);border:1px solid var(--glassborder);border-radius:10px;
+  text-decoration:none;color:var(--txt);margin-bottom:.6rem;transition:all .2s}
+.contact-link:hover{border-color:rgba(99,102,241,.4);background:rgba(99,102,241,.08);transform:translateX(4px)}
+.contact-link-icon{font-size:16px;flex-shrink:0}
+.contact-link-text{font-size:13px;color:var(--txt2)}
+.form-group{margin-bottom:1rem}
+.form-group label{display:block;font-size:12px;color:var(--txt3);
+  letter-spacing:.08em;text-transform:uppercase;font-family:var(--mono);margin-bottom:.4rem}
+.form-group input,.form-group textarea{width:100%;background:var(--glass);
+  border:1px solid var(--glassborder);border-radius:8px;padding:.75rem 1rem;
+  color:var(--txt);font-family:var(--body);font-size:14px;outline:none;
+  transition:border-color .2s;resize:vertical}
+.form-group input:focus,.form-group textarea:focus{border-color:rgba(99,102,241,.5)}
+.form-group textarea{min-height:120px}
+::placeholder{color:var(--txt3)}
+
+/* ─── FOOTER ─── */
+footer{padding:2rem;text-align:center;border-top:1px solid var(--glassborder);position:relative;z-index:1}
+footer p{font-size:12px;color:var(--txt3);font-family:var(--mono)}
+footer span{color:var(--i400)}
+
+/* ─── SCROLL ANIMATIONS ─── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════
+     TERMINAL BOOT SCREEN
+════════════════════════════════════════ -->
+<div id="terminal">
+  <div id="terminal-output"></div>
+</div>
+
+<!-- ════════════════════════════════════════
+     PORTFOLIO
+════════════════════════════════════════ -->
+<div id="portfolio">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+
+  <!-- NAV -->
+  <div class="nav-overlay" id="navOverlay"></div>
+  <nav>
+    <div class="nav-logo">kk<span>.</span>thevar<span>()</span></div>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about" class="nav-link">About</a></li>
+      <li><a href="#education" class="nav-link">Education</a></li>
+      <li><a href="#experience" class="nav-link">Experience</a></li>
+      <li><a href="#skills" class="nav-link">Skills</a></li>
+      <li><a href="#projects" class="nav-link">Projects</a></li>
+      <li><a href="#contact" class="nav-link nav-cta">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-content">
+      <div class="hero-badge">🟢 Available for Collaboration &amp; Research</div>
+      <h1 class="hero-name">
+        <span class="first">Kanda Kumaran</span><br>
+        <span class="grad">Murugan Thevar</span>
+      </h1>
+      <p class="hero-title">Lecturer · Cybersecurity Specialist · IT Educator · Innovator</p>
+      <p class="hero-desc">A passionate IT professional shaping the next generation of technology leaders at Bharati Vidyapeeth's Institute of Technology, Kharghar. Specialising in Cybersecurity, Digital Forensics, Data Analytics, and IoT.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary">📬 Get in Touch</a>
+        <a href="#projects" class="btn-ghost">🔬 View Projects</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item"><span class="stat-num">1.5+</span><span class="stat-lbl">Yrs Teaching</span></div>
+        <div class="stat-item"><span class="stat-num">3</span><span class="stat-lbl">Degrees</span></div>
+        <div class="stat-item"><span class="stat-num">4</span><span class="stat-lbl">Projects</span></div>
+        <div class="stat-item"><span class="stat-num">504</span><span class="stat-lbl">Followers</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="sec-header reveal">
+        <p class="sec-tag">01 / About</p>
+        <h2 class="sec-title">Who I Am</h2>
+        <div class="divider"></div>
+      </div>
+      <div class="about-grid reveal">
+        <div>
+          <div class="about-card" style="margin-bottom:1.25rem">
+            <div class="about-avatar">KK</div>
+            <div class="about-name">Kanda Kumaran Murugan Thevar</div>
+            <div class="about-role">He/Him · Lecturer at BVIT Kharghar</div>
+            <div class="about-info">
+              <div class="info-row"><span class="info-icon">📍</span><span>Mumbai, Maharashtra, India</span></div>
+              <div class="info-row"><span class="info-icon">✉️</span><span>mk.thevar.2001@gmail.com</span></div>
+              <div class="info-row"><span class="info-icon">📞</span><span>7021719732</span></div>
+              <div class="info-row"><span class="info-icon">🏛️</span><span>Bharati Vidyapeeth's Institute of Technology</span></div>
+            </div>
+          </div>
+          <div class="about-card">
+            <p style="font-family:var(--mono);font-size:11px;color:var(--t400);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.85rem">Top Skills</p>
+            <div style="display:flex;flex-wrap:wrap;gap:6px">
+              <span class="skill-pill">Cybersecurity</span>
+              <span class="skill-pill">Ethical Hacking</span>
+              <span class="skill-pill">Digital Forensics</span>
+              <span class="skill-pill">Data Analytics</span>
+              <span class="skill-pill">IoT</span>
+              <span class="skill-pill">Python</span>
+              <span class="skill-pill">Web Development</span>
+              <span class="skill-pill">UI/UX Design</span>
+              <span class="skill-pill">Machine Learning</span>
+              <span class="skill-pill">Cloud (AWS)</span>
+            </div>
+          </div>
+        </div>
+        <div class="about-bio">
+          <p>I am a passionate IT professional currently serving as a Lecturer at Bharati Vidyapeeth's Institute of Technology, Kharghar, where I aim to inspire and mentor the next generation of technology leaders.</p>
+          <p>My journey in the IT field blends technical expertise with leadership, education, and a commitment to innovation. I hold a BE in Information Technology with Honours in Cyber Security and am actively pursuing my ME in Information Security.</p>
+          <p>I teach Data Analytics, Digital Forensics &amp; Ethical Hacking, and Internet of Things — subjects that sit at the cutting edge of modern technology. Beyond the classroom, I've served as Chairperson and Joint Treasurer of CSI SIESGST, and volunteered at the prestigious FIFC 2023 event at IIT Bombay.</p>
+          <p>My work spans smart systems, machine learning, full-stack development, and cybersecurity research — driven by a belief that education, when done right, is the most powerful tool for change.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="container">
+      <div class="sec-header reveal">
+        <p class="sec-tag">02 / Education</p>
+        <h2 class="sec-title">Academic Journey</h2>
+        <div class="divider"></div>
+      </div>
+      <div class="edu-timeline">
+        <div class="edu-item reveal">
+          <div class="edu-dot">🎓</div>
+          <div class="edu-content">
+            <div class="edu-degree">ME in Information Security</div>
+            <div class="edu-school">Pursuing · Advanced Research in InfoSec</div>
+            <div class="edu-year">2024 — Present</div>
+            <span class="edu-badge">🔄 Pursuing</span>
+          </div>
+        </div>
+        <div class="edu-item reveal">
+          <div class="edu-dot">🏆</div>
+          <div class="edu-content">
+            <div class="edu-degree">BE in Information Technology</div>
+            <div class="edu-school">Honours in Cyber Security · SIES Graduate School of Technology</div>
+            <div class="edu-year">2021 — 2024</div>
+            <span class="edu-badge">✅ Completed with Honours</span>
+          </div>
+        </div>
+        <div class="edu-item reveal">
+          <div class="edu-dot">📘</div>
+          <div class="edu-content">
+            <div class="edu-degree">Diploma in Information Technology</div>
+            <div class="edu-school">Bharati Vidyapeeth's Institute of Technology</div>
+            <div class="edu-year">2018 — 2021</div>
+            <span class="edu-badge">✅ Completed</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="container">
+      <div class="sec-header reveal">
+        <p class="sec-tag">03 / Experience</p>
+        <h2 class="sec-title">Professional Journey</h2>
+        <div class="divider"></div>
+      </div>
+      <div class="exp-grid">
+        <div class="exp-card reveal">
+          <div class="exp-role">College Lecturer</div>
+          <div class="exp-org">Bharati Vidyapeeth's Institute of Technology</div>
+          <div class="exp-period">Jan 2025 — Present · Full-time · On-site</div>
+          <div class="exp-desc">Delivering lectures, designing course curricula, and mentoring students in Cybersecurity, Digital Forensics, Data Analytics, and IoT at BVIT Kharghar.</div>
+          <div style="margin-top:.75rem"><span class="skill-pill">Teaching</span><span class="skill-pill">Training</span><span class="skill-pill">Cybersecurity</span></div>
+        </div>
+        <div class="exp-card reveal">
+          <div class="exp-role">Visiting Lecturer</div>
+          <div class="exp-org">Bharati Vidyapeeth</div>
+          <div class="exp-period">Jun 2024 — Dec 2024 · Part-time · 7 months</div>
+          <div class="exp-desc">Conducted guest lectures and workshops, building foundational exposure to academic teaching before transitioning to a full-time faculty role.</div>
+          <div style="margin-top:.75rem"><span class="skill-pill">Curriculum Design</span><span class="skill-pill">Mentoring</span></div>
+        </div>
+        <div class="exp-card reveal">
+          <div class="exp-role">Technical Teaching Professional</div>
+          <div class="exp-org">Satish Tutorials · Part-time</div>
+          <div class="exp-period">Apr 2019 — Dec 2024 · 5 yrs 9 mos · On-site</div>
+          <div class="exp-desc">Taught HTML, CSS, JavaScript, and full-stack web development concepts, helping students build practical coding skills alongside their academic studies.</div>
+          <div style="margin-top:.75rem"><span class="skill-pill">HTML/CSS</span><span class="skill-pill">JavaScript</span><span class="skill-pill">Full-Stack</span></div>
+        </div>
+        <div class="exp-card reveal">
+          <div class="exp-role">Chairperson</div>
+          <div class="exp-org">CSI SIESGST · Full-time</div>
+          <div class="exp-period">Jun 2023 — May 2024 · 1 yr · Navi Mumbai</div>
+          <div class="exp-desc">Led the Computer Society of India student chapter, organising technical events, managing a team, and representing the chapter at national-level conferences.</div>
+          <div style="margin-top:.75rem"><span class="skill-pill">Leadership</span><span class="skill-pill">Problem Solving</span><span class="skill-pill">Conflict Mgmt</span></div>
+        </div>
+        <div class="exp-card reveal">
+          <div class="exp-role">Python Developer Intern</div>
+          <div class="exp-org">CodSoft · Internship · Remote</div>
+          <div class="exp-period">Jul 2023 — Aug 2023 · 2 mos · Mumbai</div>
+          <div class="exp-desc">Developed Python-based solutions and gained hands-on industry experience in real-world software development workflows.</div>
+          <div style="margin-top:.75rem"><span class="skill-pill">Python</span><span class="skill-pill">Software Dev</span></div>
+        </div>
+        <div class="exp-card reveal">
+          <div class="exp-role">Founder</div>
+          <div class="exp-org">Skandan Art · Self-employed</div>
+          <div class="exp-period">Aug 2016 — Dec 2024 · 8 yrs 5 mos</div>
+          <div class="exp-desc">Founded and operated a creative venture, developing entrepreneurial skills in business development, client management, and creative direction.</div>
+          <div style="margin-top:.75rem"><span class="skill-pill">Entrepreneurship</span><span class="skill-pill">Business Dev</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="container">
+      <div class="sec-header reveal">
+        <p class="sec-tag">04 / Skills</p>
+        <h2 class="sec-title">Technical Arsenal</h2>
+        <div class="divider"></div>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-cat reveal">
+          <div class="skill-cat-title">🔐 Security</div>
+          <div class="skill-item"><span>Cybersecurity</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:90%"></div></div></div>
+          <div class="skill-item"><span>Ethical Hacking</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:85%"></div></div></div>
+          <div class="skill-item"><span>Digital Forensics</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:80%"></div></div></div>
+          <div class="skill-item"><span>Data Privacy</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:78%"></div></div></div>
+        </div>
+        <div class="skill-cat reveal">
+          <div class="skill-cat-title">💻 Development</div>
+          <div class="skill-item"><span>Python</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:88%"></div></div></div>
+          <div class="skill-item"><span>Web Development</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:85%"></div></div></div>
+          <div class="skill-item"><span>JavaScript</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:75%"></div></div></div>
+          <div class="skill-item"><span>UI/UX Design</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:72%"></div></div></div>
+        </div>
+        <div class="skill-cat reveal">
+          <div class="skill-cat-title">☁️ Emerging Tech</div>
+          <div class="skill-item"><span>Internet of Things</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:80%"></div></div></div>
+          <div class="skill-item"><span>Machine Learning</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:75%"></div></div></div>
+          <div class="skill-item"><span>AWS Cloud</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:68%"></div></div></div>
+          <div class="skill-item"><span>Data Analytics</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:82%"></div></div></div>
+        </div>
+        <div class="skill-cat reveal">
+          <div class="skill-cat-title">🎓 Teaching</div>
+          <div class="skill-item"><span>Curriculum Design</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:85%"></div></div></div>
+          <div class="skill-item"><span>Training & Mentoring</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:88%"></div></div></div>
+          <div class="skill-item"><span>Leadership</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:80%"></div></div></div>
+          <div class="skill-item"><span>Problem Solving</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:90%"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certifications">
+    <div class="container">
+      <div class="sec-header reveal">
+        <p class="sec-tag">05 / Certifications</p>
+        <h2 class="sec-title">Credentials & Badges</h2>
+        <div class="divider"></div>
+      </div>
+      <div class="cert-grid">
+        <div class="cert-card reveal"><div class="cert-icon">☁️</div><div><div class="cert-name">AWS Academy Cloud Foundations</div><div class="cert-issuer">Amazon Web Services (AWS)</div><div class="cert-date">Issued Mar 2024</div></div></div>
+        <div class="cert-card reveal"><div class="cert-icon">🛡️</div><div><div class="cert-name">Introduction to Cybersecurity</div><div class="cert-issuer">Cisco</div><div class="cert-date">Issued Jul 2023</div></div></div>
+        <div class="cert-card reveal"><div class="cert-icon">🎨</div><div><div class="cert-name">Canva Essentials</div><div class="cert-issuer">Canva</div><div class="cert-date">Issued Mar 2025</div></div></div>
+        <div class="cert-card reveal"><div class="cert-icon">🌐</div><div><div class="cert-name">Practical Web Development: 22 Courses in 1</div><div class="cert-issuer">Udemy</div><div class="cert-date">Issued Jun 2020</div></div></div>
+        <div class="cert-card reveal"><div class="cert-icon">💼</div><div><div class="cert-name">SAP Training Program</div><div class="cert-issuer">SAP</div><div class="cert-date">Issued Jan 2020</div></div></div>
+        <div class="cert-card reveal"><div class="cert-icon">🖥️</div><div><div class="cert-name">MS-CIT</div><div class="cert-issuer">Maharashtra Knowledge Corporation Limited (MKCL)</div><div class="cert-date">Issued Jan 2018</div></div></div>
+        <div class="cert-card reveal"><div class="cert-icon">🏅</div><div><div class="cert-name">Certificate of Honor for being a Teacher</div><div class="cert-issuer">MKCL</div><div class="cert-date">Issued Sep 2021</div></div></div>
+        <div class="cert-card reveal"><div class="cert-icon">🎓</div><div><div class="cert-name">Soft Skills & Personality Development (C-Caps)</div><div class="cert-issuer">Bharati Vidyapeeth</div><div class="cert-date">Issued May 2020</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="container">
+      <div class="sec-header reveal">
+        <p class="sec-tag">06 / Projects</p>
+        <h2 class="sec-title">Work I've Built</h2>
+        <div class="divider"></div>
+      </div>
+      <div class="proj-grid">
+        <div class="proj-card reveal">
+          <div class="proj-num">PROJECT_01 · Jan 2023 – Jul 2023</div>
+          <div class="proj-name">Smart Street Lighting System</div>
+          <div class="proj-org">SIES Graduate School of Technology</div>
+          <div class="proj-desc">An IoT-based smart street lighting system utilising LDR (Light Dependent Resistor) and IR (Infrared) sensors to automate street lighting, reducing energy consumption and enabling intelligent infrastructure.</div>
+          <div class="proj-tags"><span class="skill-pill">IoT</span><span class="skill-pill">Sensors</span><span class="skill-pill">Embedded Systems</span><span class="skill-pill">Teamwork</span></div>
+        </div>
+        <div class="proj-card reveal">
+          <div class="proj-num">PROJECT_02 · Jan 2023 – Apr 2023</div>
+          <div class="proj-name">Stock Market Prediction using ML</div>
+          <div class="proj-org">SIES Graduate School of Technology</div>
+          <div class="proj-desc">A machine learning-powered application to predict stock market trends using Python. Applied data preprocessing, feature engineering, and predictive modelling techniques to forecast market behaviour.</div>
+          <div class="proj-tags"><span class="skill-pill">Python</span><span class="skill-pill">Machine Learning</span><span class="skill-pill">Data Analytics</span><span class="skill-pill">Finance</span></div>
+        </div>
+        <div class="proj-card reveal">
+          <div class="proj-num">PROJECT_03 · Jan 2022 – Apr 2022</div>
+          <div class="proj-name">Students Management System</div>
+          <div class="proj-org">SIES Graduate School of Technology</div>
+          <div class="proj-desc">A robust Python Tkinter desktop application for managing student data. Features include student registration, attendance tracking, grade management, and report generation — with secure authentication to protect data privacy.</div>
+          <div class="proj-tags"><span class="skill-pill">Python</span><span class="skill-pill">Tkinter</span><span class="skill-pill">Database</span><span class="skill-pill">Security</span></div>
+        </div>
+        <div class="proj-card reveal">
+          <div class="proj-num">PROJECT_04 · Jul 2022 – Dec 2022</div>
+          <div class="proj-name">Static Website for Satish Tutorials</div>
+          <div class="proj-org">SIES Graduate School of Technology</div>
+          <div class="proj-desc">Designed and developed a comprehensive static website for a tutorial centre, providing students with course information, faculty profiles, and easy contact options — built with clean HTML, CSS, and front-end best practices.</div>
+          <div class="proj-tags"><span class="skill-pill">HTML</span><span class="skill-pill">CSS</span><span class="skill-pill">Front-End Dev</span><span class="skill-pill">UI/UX</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PUBLICATIONS -->
+  <section id="publications">
+    <div class="container">
+      <div class="sec-header reveal">
+        <p class="sec-tag">07 / Publications</p>
+        <h2 class="sec-title">Articles & Writing</h2>
+        <div class="divider"></div>
+      </div>
+      <div class="pub-card reveal">
+        <div class="pub-icon">📰</div>
+        <div>
+          <div class="pub-title">Introduction to Metaverse &amp; Virtual Reality</div>
+          <div class="pub-venue">TechScience — IT Department Magazine, 2021–22 · SIES Graduate School of Technology</div>
+          <div class="pub-desc">Two featured articles exploring the emerging world of the Metaverse and Virtual Reality. Published in the TechScience Metaverse edition, these pieces offer an insightful exploration into immersive technologies, their applications, and their transformative potential for the future of digital interaction.</div>
+          <div style="margin-top:.85rem"><span class="skill-pill">Metaverse</span><span class="skill-pill">Virtual Reality</span><span class="skill-pill">Emerging Tech</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="sec-header reveal">
+        <p class="sec-tag">08 / Contact</p>
+        <h2 class="sec-title">Let's Connect</h2>
+        <div class="divider"></div>
+        <p class="sec-sub">Open to collaborations, research partnerships, and speaking opportunities</p>
+      </div>
+      <div class="contact-wrap">
+        <div class="contact-info reveal">
+          <h3>Reach Out</h3>
+          <p>Whether you're a student, fellow researcher, or institution — I'd love to hear from you. Let's build something meaningful together.</p>
+          <a href="mailto:mk.thevar.2001@gmail.com" class="contact-link">
+            <span class="contact-link-icon">✉️</span>
+            <div><div style="font-size:13px;font-weight:500">Email</div><div class="contact-link-text">mk.thevar.2001@gmail.com</div></div>
+          </a>
+          <a href="tel:7021719732" class="contact-link">
+            <span class="contact-link-icon">📞</span>
+            <div><div style="font-size:13px;font-weight:500">Phone</div><div class="contact-link-text">7021719732</div></div>
+          </a>
+          <a href="https://in.linkedin.com/in/kanda-kumaran-thevar-01a917113" target="_blank" class="contact-link">
+            <span class="contact-link-icon">🔗</span>
+            <div><div style="font-size:13px;font-weight:500">LinkedIn</div><div class="contact-link-text">kanda-kumaran-thevar</div></div>
+          </a>
+          <a href="#" class="contact-link">
+            <span class="contact-link-icon">📍</span>
+            <div><div style="font-size:13px;font-weight:500">Location</div><div class="contact-link-text">Mumbai, Maharashtra, India</div></div>
+          </a>
+        </div>
+        <div class="reveal">
+          <div class="form-group"><label>Your Name</label><input type="text" placeholder="e.g. Priya Sharma"></div>
+          <div class="form-group"><label>Email Address</label><input type="email" placeholder="priya@example.com"></div>
+          <div class="form-group"><label>Subject</label><input type="text" placeholder="Research collaboration, Speaking invite..."></div>
+          <div class="form-group"><label>Message</label><textarea placeholder="Tell me what you have in mind..."></textarea></div>
+          <button class="btn-primary" style="width:100%;justify-content:center" onclick="alert('Thank you! This form is a template — please connect via email or LinkedIn.')">Send Message 🚀</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Crafted with ❤️ by <span>Kanda Kumaran Murugan Thevar</span> · Mumbai, India · 2025</p>
+    <p style="margin-top:.4rem">Lecturer · Cybersecurity Specialist · IT Educator</p>
+  </footer>
+</div>
+
+<script>
+// ── TERMINAL BOOT SEQUENCE ──
+const out = document.getElementById('terminal-output');
+const lines = [
+  {t:0,   cls:'tm', txt:'BIOS v2.0.1 — KK-THEVAR PORTFOLIO SYSTEM'},
+  {t:150, cls:'tm', txt:'Copyright (C) 2025 Kanda Kumaran Murugan Thevar. All rights reserved.'},
+  {t:300, cls:'tm', txt:'─────────────────────────────────────────────'},
+  {t:500, cls:'tg', txt:'[  OK  ] Initialising kernel modules...'},
+  {t:700, cls:'tg', txt:'[  OK  ] Loading cybersecurity protocols...'},
+  {t:900, cls:'ty', txt:'[ BOOT ] Mounting academic credentials...'},
+  {t:1100,cls:'tg', txt:'[  OK  ] Diploma in IT ............... verified ✓'},
+  {t:1250,cls:'tg', txt:'[  OK  ] BE in IT (Hons. Cyber Security) verified ✓'},
+  {t:1400,cls:'tv', txt:'[ INFO ] ME in Information Security ... pursuing...'},
+  {t:1600,cls:'ty', txt:'[ BOOT ] Loading professional records...'},
+  {t:1800,cls:'tg', txt:'[  OK  ] Bharati Vidyapeeth BVIT Kharghar — Lecturer'},
+  {t:1950,cls:'tg', txt:'[  OK  ] CSI SIESGST Chairperson — loaded'},
+  {t:2100,cls:'tg', txt:'[  OK  ] Satish Tutorials — Technical Educator — loaded'},
+  {t:2300,cls:'ty', txt:'[ BOOT ] Scanning skill matrix...'},
+  {t:2400,cls:'tt', txt:'         > Cybersecurity .......... [████████░░] 90%'},
+  {t:2500,cls:'tt', txt:'         > Ethical Hacking ........ [████████░░] 85%'},
+  {t:2600,cls:'tt', txt:'         > Digital Forensics ...... [███████░░░] 80%'},
+  {t:2700,cls:'tt', txt:'         > Python ................ [████████░░] 88%'},
+  {t:2800,cls:'tt', txt:'         > IoT .................. [███████░░░] 80%'},
+  {t:2900,cls:'tt', txt:'         > Machine Learning ...... [███████░░░] 75%'},
+  {t:3050,cls:'ty', txt:'[ BOOT ] Authenticating projects...'},
+  {t:3150,cls:'tg', txt:'[  OK  ] Smart Street Lighting System — IoT'},
+  {t:3250,cls:'tg', txt:'[  OK  ] Stock Market Prediction — ML/Python'},
+  {t:3350,cls:'tg', txt:'[  OK  ] Students Management System — Python'},
+  {t:3450,cls:'tg', txt:'[  OK  ] Static Website — Satish Tutorials'},
+  {t:3600,cls:'ty', txt:'[ BOOT ] Loading certifications...'},
+  {t:3700,cls:'tg', txt:'[  OK  ] AWS Academy Cloud Foundations — Amazon'},
+  {t:3800,cls:'tg', txt:'[  OK  ] Introduction to Cybersecurity — Cisco'},
+  {t:3900,cls:'tg', txt:'[  OK  ] Canva Essentials · Udemy Web Dev · SAP Training'},
+  {t:4050,cls:'ty', txt:'[ BOOT ] Establishing contact channels...'},
+  {t:4150,cls:'tg', txt:'[  OK  ] mk.thevar.2001@gmail.com — active'},
+  {t:4250,cls:'tg', txt:'[  OK  ] LinkedIn: 504 followers · 421 connections'},
+  {t:4350,cls:'tg', txt:'[  OK  ] Mumbai, Maharashtra, India — located'},
+  {t:4500,cls:'tm', txt:'─────────────────────────────────────────────'},
+  {t:4600,cls:'tg', txt:'[  OK  ] All systems nominal.'},
+  {t:4750,cls:'tg', txt:'[  OK  ] Portfolio integrity verified.'},
+  {t:4900,cls:'tw', txt:''},
+  {t:4950,cls:'tw', txt:'root@kk-thevar:~# ./launch_portfolio.sh --mode=cinematic'},
+  {t:5200,cls:'tg', txt:'Launching portfolio for Kanda Kumaran Murugan Thevar...'},
+  {t:5450,cls:'tw', txt:''},
+];
+
+lines.forEach(l => {
+  setTimeout(() => {
+    const div = document.createElement('div');
+    div.className = 'tl show ' + l.cls;
+    div.textContent = l.txt;
+    out.appendChild(div);
+    out.scrollTop = out.scrollHeight;
+  }, l.t);
+});
+
+// Transition to portfolio
+setTimeout(() => {
+  const term = document.getElementById('terminal');
+  const port = document.getElementById('portfolio');
+  term.classList.add('exit');
+  setTimeout(() => {
+    term.style.display = 'none';
+    port.style.display = 'block';
+    // Force reflow
+    port.offsetHeight;
+    port.classList.add('visible');
+    // Trigger scroll reveals for hero section
+    document.querySelectorAll('.reveal').forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if(rect.top < window.innerHeight) el.classList.add('visible');
+    });
+  }, 900);
+}, 5900);
+
+// ── HAMBURGER MENU ──
+const hamburger = document.getElementById('navHamburger');
+const navLinks  = document.getElementById('navLinks');
+const overlay   = document.getElementById('navOverlay');
+
+function toggleMenu(open){
+  hamburger.classList.toggle('open', open);
+  navLinks.classList.toggle('open', open);
+  overlay.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+
+hamburger.addEventListener('click', () => toggleMenu(!navLinks.classList.contains('open')));
+overlay.addEventListener('click', () => toggleMenu(false));
+document.querySelectorAll('.nav-link').forEach(a => {
+  a.addEventListener('click', () => toggleMenu(false));
+});
+
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── SAFETY FALLBACK: always show portfolio after 8s ──
+setTimeout(() => {
+  const term = document.getElementById('terminal');
+  const port = document.getElementById('portfolio');
+  if(term.style.display !== 'none') {
+    term.style.display = 'none';
+    port.style.opacity = '1';
+    port.style.display = 'block';
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+  }
+}, 8000);
+</script>
+</body>
+</html>
